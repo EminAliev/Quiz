@@ -60,7 +60,7 @@ public class DataBase extends SQLiteAssetHelper {
                         cursor.getString(cursor.getColumnIndex("AnswerC")),
                         cursor.getString(cursor.getColumnIndex("AnswerD")),
                         cursor.getString(cursor.getColumnIndex("CorrectAnswer")),
-                        cursor.getInt(cursor.getColumnIndex("isImageQuestion")),
+                        cursor.getInt(cursor.getColumnIndex("IsImageQuestion")),
                         cursor.getInt(cursor.getColumnIndex("CategoryID")));
                 questions.add(questions1);
                 cursor.moveToNext();

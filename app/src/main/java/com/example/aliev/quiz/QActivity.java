@@ -1,8 +1,11 @@
 package com.example.aliev.quiz;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,25 +15,34 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.aliev.quiz.datebases.DataBase;
+import com.example.aliev.quiz.decoration.Common;
+import com.example.aliev.quiz.model.Questions;
+import com.example.aliev.quiz.model.Questions_curr;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+
+import org.w3c.dom.Text;
 
 public class QActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    boolean isAnswerView = false;
+    TextView rightAnswer;
+    RecyclerView recyclerView;
+    AnswerAdapter answerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_q);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(Common.select.getName());
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +52,50 @@ public class QActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        getQuestion();
+
+        if (Common.questionList.size() > 0) {
+
+            rightAnswer = (TextView) findViewById(R.id.txt_ques_r);
+            rightAnswer.setVisibility(View.VISIBLE);
+
+            rightAnswer.setText(new StringBuilder(String.format("%d/%d", Common.rightCount, Common.questionList.size())));
+
+            recyclerView = (RecyclerView) findViewById(R.id.gr_ans);
+            recyclerView.setHasFixedSize(true);
+            if (Common.questionList.size() > 5)
+                recyclerView.setLayoutManager(new GridLayoutManager(this, Common.questionList.size() / 2));
+            answerAdapter = new AnswerAdapter(this, Common.answerList);
+            recyclerView.setAdapter(answerAdapter);
+
+        }
+    }
+
+
+    private void getQuestion() {
+        Common.questionList = DataBase.getInst(this).getQuestion(Common.select.getId());
+        if (Common.questionList.size() == 0) {
+            new MaterialStyledDialog.Builder(this)
+                    .setTitle("-_-")
+                    .setIcon(R.drawable.ic_sentiment_dissatisfied_black_24dp)
+                    .setDescription("Нет вопросов в этой " + Common.select.getName() + " категории")
+                    .setPositiveText("ОК")
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    }).show();
+        } else {
+            if (Common.answerList.size() > 0)
+                Common.answerList.clear();
+
+            for (int i = 0; i < Common.answerList.size(); i++) {
+                Common.answerList.add(new Questions_curr(i, Common.ANSWER_TYPE.NO_ANSWER));
+            }
+        }
     }
 
     @Override

@@ -16,7 +16,7 @@
             android:id="@+id/txt_category_name"
             android:text="Музыка"
             android:textStyle="italic"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
