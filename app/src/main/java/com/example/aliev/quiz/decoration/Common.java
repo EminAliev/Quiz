@@ -1,11 +1,13 @@
 package com.example.aliev.quiz.decoration;
 
+import com.example.aliev.quiz.BlankFragment;
 import com.example.aliev.quiz.model.Category;
 import com.example.aliev.quiz.model.Questions;
 import com.example.aliev.quiz.model.Questions_curr;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class Common {
 
@@ -14,6 +16,8 @@ public class Common {
     public static List<Questions_curr> answerList = new ArrayList<>();
     public static int rightCount = 0;
     public static int wrongCount = 0;
+    public static ArrayList<BlankFragment> fragList = new ArrayList<>();
+    public static TreeSet<String> select_val = new TreeSet<>();
 
     public enum ANSWER_TYPE {
         WRONG_ANSWER,

@@ -3,13 +3,13 @@ package com.example.aliev.quiz.model;
 public class Questions {
     private int id;
     private String qText, qImage, ansA, ansB, ansC, ansD, corretcly_answer;
-    private int isImageQ;
+    private boolean isImageQ;
     private int categoryId;
 
     public Questions() {
     }
 
-    public Questions(int id, String qText, String qImage, String ansA, String ansB, String ansC, String ansD, String corretcly_answer, int isImageQ, int categoryId) {
+    public Questions(int id, String qText, String qImage, String ansA, String ansB, String ansC, String ansD, String corretcly_answer, boolean isImageQ, int categoryId) {
         this.id = id;
         this.qText = qText;
         this.qImage = qImage;
@@ -86,11 +86,11 @@ public class Questions {
         this.corretcly_answer = corretcly_answer;
     }
 
-    public int getIsImageQ() {
+    public boolean getIsImageQ() {
         return isImageQ;
     }
 
-    public void setIsImageQ(int isImageQ) {
+    public void setIsImageQ(boolean isImageQ) {
         this.isImageQ = isImageQ;
     }
 

@@ -35,7 +35,7 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.MyViewHold
             myViewHolder.question.setBackgroundResource(R.drawable.question_right_answer);
         else if (questions_currList.get(i).getType() == Common.ANSWER_TYPE.WRONG_ANSWER)
             myViewHolder.question.setBackgroundResource(R.drawable.question_wrong_answer);
-        else if (questions_currList.get(i).getType() == Common.ANSWER_TYPE.NO_ANSWER)
+        else
             myViewHolder.question.setBackgroundResource(R.drawable.question_no_answer);
     }
 
