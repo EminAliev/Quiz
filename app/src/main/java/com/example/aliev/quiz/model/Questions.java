@@ -6,9 +6,6 @@ public class Questions {
     private boolean isImageQ;
     private int categoryId;
 
-    public Questions() {
-    }
-
     public Questions(int id, String qText, String qImage, String ansA, String ansB, String ansC, String ansD, String corretcly_answer, boolean isImageQ, int categoryId) {
         this.id = id;
         this.qText = qText;
@@ -86,12 +83,12 @@ public class Questions {
         this.corretcly_answer = corretcly_answer;
     }
 
-    public boolean getIsImageQ() {
+    public boolean isImageQ() {
         return isImageQ;
     }
 
-    public void setIsImageQ(boolean isImageQ) {
-        this.isImageQ = isImageQ;
+    public void setImageQ(boolean imageQ) {
+        isImageQ = imageQ;
     }
 
     public int getCategoryId() {

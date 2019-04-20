@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycle_category);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
 
 
         Adapter adapter = new Adapter(MainActivity.this, DataBase.getInst(this).getCategoriesFromDataBase());

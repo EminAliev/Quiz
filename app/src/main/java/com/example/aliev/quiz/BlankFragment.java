@@ -59,7 +59,7 @@ public class BlankFragment extends Fragment implements QuestionIterface {
         if (questions != null) {
             frameLayout_image = (FrameLayout) itemView.findViewById(R.id.lay_image);
             progressBar = (ProgressBar) itemView.findViewById(R.id.progress_bar);
-            if (questions.getIsImageQ()) { // возможно не работает, проверить и пофиксить!!
+            if (questions.isImageQ()) {
                 ImageView imageView_question = (ImageView) itemView.findViewById(R.id.image_questions);
                 Picasso.get().load(questions.getqImage()).into(imageView_question, new Callback() {
                     @Override
