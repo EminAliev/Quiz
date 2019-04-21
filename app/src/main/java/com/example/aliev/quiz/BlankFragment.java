@@ -52,9 +52,9 @@ public class BlankFragment extends Fragment implements QuestionIterface {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View itemView = inflater.inflate(R.layout.fragment_blank, container, false);
-
         question_id = getArguments().getInt("index", -1);
         questions = Common.questionList.get(question_id);
+        final TextView textView = (TextView)itemView.findViewById(R.id.text_view);
 
         if (questions != null) {
             frameLayout_image = (FrameLayout) itemView.findViewById(R.id.lay_image);
@@ -72,7 +72,8 @@ public class BlankFragment extends Fragment implements QuestionIterface {
                         Toast.makeText(getContext(), "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-            } else {
+            }
+            else {
                 frameLayout_image.setVisibility(View.GONE);
             }
             text_question = (TextView) itemView.findViewById(R.id.text_question);
@@ -86,6 +87,7 @@ public class BlankFragment extends Fragment implements QuestionIterface {
                         Common.select_val.add(check_A.getText().toString());
                     else
                         Common.select_val.remove(check_A.getText().toString());
+
                 }
             });
             check_B = (CheckBox) itemView.findViewById(R.id.check_B);
@@ -139,7 +141,8 @@ public class BlankFragment extends Fragment implements QuestionIterface {
                 else
                     res.append(new StringBuilder((String) arrAnswer[i]).substring(0, 1));
             }
-        } else if (Common.select_val.size() == 1) {
+        }
+        else if (Common.select_val.size() == 1) {
             Object[] arrAnswer = Common.select_val.toArray();
             res.append((String) arrAnswer[0]).substring(0, 1);
         }
@@ -195,7 +198,6 @@ public class BlankFragment extends Fragment implements QuestionIterface {
 
     @Override
     public void reset_question() {
-
         check_A.setEnabled(true);
         check_B.setEnabled(true);
         check_C.setEnabled(true);
@@ -214,6 +216,6 @@ public class BlankFragment extends Fragment implements QuestionIterface {
         check_C.setTextColor(Color.BLACK);
         check_D.setTypeface(null, Typeface.NORMAL);
         check_D.setTextColor(Color.BLACK);
-
     }
+
 }

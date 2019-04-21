@@ -20,8 +20,8 @@ public class Common {
     public static TreeSet<String> select_val = new TreeSet<>();
 
     public enum ANSWER_TYPE {
-        WRONG_ANSWER,
         NO_ANSWER,
+        WRONG_ANSWER,
         RIGHT_ANSWER
     }
 }

@@ -32,11 +32,11 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.MyViewHold
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         if (questions_currList.get(i).getType() == Common.ANSWER_TYPE.RIGHT_ANSWER)
-            myViewHolder.question.setBackgroundResource(R.drawable.question_right_answer);
+            myViewHolder.question_item.setBackgroundResource(R.drawable.question_right_answer);
         else if (questions_currList.get(i).getType() == Common.ANSWER_TYPE.WRONG_ANSWER)
-            myViewHolder.question.setBackgroundResource(R.drawable.question_wrong_answer);
+            myViewHolder.question_item.setBackgroundResource(R.drawable.question_wrong_answer);
         else
-            myViewHolder.question.setBackgroundResource(R.drawable.question_no_answer);
+            myViewHolder.question_item.setBackgroundResource(R.drawable.question_no_answer);
     }
 
 
@@ -46,12 +46,12 @@ public class AnswerAdapter extends RecyclerView.Adapter<AnswerAdapter.MyViewHold
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        View question;
+        View question_item;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            question = itemView.findViewById(R.id.q_item);
+            question_item = itemView.findViewById(R.id.q_item);
         }
     }
 }

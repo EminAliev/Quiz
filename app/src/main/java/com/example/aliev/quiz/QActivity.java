@@ -3,8 +3,6 @@ package com.example.aliev.quiz;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,18 +22,15 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.aliev.quiz.datebases.DataBase;
 import com.example.aliev.quiz.decoration.Common;
-import com.example.aliev.quiz.model.Questions;
 import com.example.aliev.quiz.model.Questions_curr;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
-
-import org.w3c.dom.Text;
 
 public class QActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     boolean isAnswerView = false;
     TextView rightAnswer, wrongAnswer;
-    RecyclerView recyclerView;
+    RecyclerView answer_recycler;
     AnswerAdapter answerAdapter;
     ViewPager viewPager;
     TabLayout tabLayout;
@@ -67,12 +62,12 @@ public class QActivity extends AppCompatActivity
 
             rightAnswer.setText(new StringBuilder(String.format("%d/%d", Common.rightCount, Common.questionList.size())));
 
-            recyclerView = (RecyclerView) findViewById(R.id.gr_ans);
-            recyclerView.setHasFixedSize(true);
+            answer_recycler = (RecyclerView) findViewById(R.id.gr_ans);
+            answer_recycler.setHasFixedSize(true);
             if (Common.questionList.size() > 5)
-                recyclerView.setLayoutManager(new GridLayoutManager(this, Common.questionList.size() / 2));
+                answer_recycler.setLayoutManager(new GridLayoutManager(this, Common.questionList.size() / 2));
             answerAdapter = new AnswerAdapter(this, Common.answerList);
-            recyclerView.setAdapter(answerAdapter);
+            answer_recycler.setAdapter(answerAdapter);
 
             viewPager = (ViewPager) findViewById(R.id.viewpage);
             tabLayout = (TabLayout) findViewById(R.id.slid_tab);
@@ -91,16 +86,15 @@ public class QActivity extends AppCompatActivity
             viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                 int SCROLL_R = 0;
                 int SCROLL_L = 1;
-                int SCROLL_UNDETERMINED = 3;
+                int SCROLL_UNDETERMINED = 2;
 
                 int currentScroll = 2;
 
                 private void setScrollingDir(float positionOff) {
-                    if ((1 - positionOff) >= 0.5) {
+                    if ((1 - positionOff) >= 0.5)
                         this.currentScroll = SCROLL_R;
-                    } else if ((1 - positionOff) <= 0.5) {
+                    else if ((1 - positionOff) <= 0.5)
                         this.currentScroll = SCROLL_L;
-                    }
                 }
 
                 private boolean isScrollDirUndetermited() {
@@ -138,13 +132,14 @@ public class QActivity extends AppCompatActivity
                             blankFragment = Common.fragList.get(position);
                         }
 
-                    } else {
+                    }
+                    else {
                         blankFragment = Common.fragList.get(0);
                         position = 0;
                     }
 
                     Questions_curr questions_st = blankFragment.getSelectAns();
-                    Common.answerList.add(position, questions_st);
+                    Common.answerList.set(position, questions_st); //add or set -_-
                     answerAdapter.notifyDataSetChanged();
 
                     countCorAns();
@@ -235,7 +230,7 @@ public class QActivity extends AppCompatActivity
             if (Common.answerList.size() > 0)
                 Common.answerList.clear();
 
-            for (int i = 0; i < Common.answerList.size(); i++) {
+            for (int i = 0; i < Common.questionList.size(); i++) {
                 Common.answerList.add(new Questions_curr(i, Common.ANSWER_TYPE.NO_ANSWER));
             }
         }
